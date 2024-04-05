@@ -20,7 +20,7 @@ class Teacher:
             print("5. Add Marks")
             print("6. Logout")
 
-            choice = input("Enter your choice (1-4): ")
+            choice = input("Enter your choice (1-6): ")
 
             if choice == "1":
                 self.view_students()
