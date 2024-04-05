@@ -74,4 +74,8 @@ def login_as_hod():
     print("Invalid email or password. Please try again.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        main()
