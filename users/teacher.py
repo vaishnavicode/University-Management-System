@@ -1,4 +1,5 @@
 from utils.file_handling import read_csv, write_csv
+import re
 
 class Teacher:
     def __init__(self, teacher_data):
@@ -67,8 +68,18 @@ class Teacher:
         student_id = input("Enter the student ID: ")
         name = input("Enter the student name: ")
         department = input("Enter the student department: ")
-        email = input("Enter the student email: ")
-        password = input("Enter the student password: ")
+        while True:
+            email = input("Enter the student email: ")
+            if self.validate_email(email):
+                break
+            else:
+                print("Invalid email. Please try again.")
+        while True:
+            password = input("Enter the student password: ")
+            if self.validate_password(password):
+                break
+            else:
+                print("Invalid password. Should be between 8 to 20 characters, atleast one uppercase, one lowercase, one digit and one special character. Please try again.")
 
         # Create a dictionary to represent the new student
         student_data = {"id": student_id, "name": name, "department": department, "email": email, "password": password}
@@ -158,6 +169,57 @@ class Teacher:
         
         write_csv("data/students.csv", students)
         self.students = read_csv("data/students.csv")
+    
+    def validate_email(email):
+        """
+        Check if the input string is a valid email address.
+
+        Args:
+        email (str): The email address to be validated.
+
+        Returns:
+        bool: True if the email address is valid, False otherwise.
+        """
+        # Regular expression pattern for validating email addresses
+        pattern = r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$'
+        
+        # Check if the email matches the pattern
+        if re.match(pattern, email):
+            return True
+        else:
+            return False
+    
+    def validate_password(password):
+        """
+        Check if the input string meets the password criteria.
+
+        Args:
+        password (str): The password to be validated.
+
+        Returns:
+        bool: True if the password meets the criteria, False otherwise.
+        """
+        # Check if the password length is between 8 and 20 characters
+        if len(password) < 8 or len(password) > 20:
+            return False
+        
+        # Check if the password contains at least one uppercase letter
+        if not re.search(r'[A-Z]', password):
+            return False
+        
+        # Check if the password contains at least one lowercase letter
+        if not re.search(r'[a-z]', password):
+            return False
+        
+        # Check if the password contains at least one digit
+        if not re.search(r'\d', password):
+            return False
+        
+        # Check if the password contains at least one special character
+        if not re.search(r'[@_!#$%^&*()<>?/\|}{~:]', password):
+            return False
+        
+        return True
             
         
 

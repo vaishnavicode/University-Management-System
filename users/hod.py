@@ -1,4 +1,6 @@
 from utils.file_handling import read_csv, write_csv
+import re
+
 
 class HOD:
     def __init__(self, hod_data):
@@ -9,6 +11,26 @@ class HOD:
         self.password = hod_data["password"]
         self.teachers = []  # To store the teachers in the HOD's department
         self.students = []  # To store the students in the HOD's department
+        
+    def validate_email(email):
+        """
+        Check if the input string is a valid email address.
+
+        Args:
+        email (str): The email address to be validated.
+
+        Returns:
+        bool: True if the email address is valid, False otherwise.
+        """
+        # Regular expression pattern for validating email addresses
+        pattern = r'^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$'
+        
+        # Check if the email matches the pattern
+        if re.match(pattern, email):
+            return True
+        else:
+            return False
+
 
     def display_menu(self):
         while True:
@@ -44,8 +66,18 @@ class HOD:
         teacher_id = input("Enter the teacher ID: ")
         teacher_name = input("Enter the teacher name: ")
         teacher_department = input("Enter the teacher department: ")
-        teacher_email = input("Enter the teacher email: ")
-        teacher_password = input("Enter the teacher password: ")
+        while True:
+            teacher_email = input("Enter the teacher email: ")
+            if(self.validate_email(teacher_email)):
+                break
+            else:
+                print("Invalid email. Please enter a valid email address.")
+        while True:
+            teacher_password = input("Enter the teacher password: ")
+            if(self.validate_password(teacher_password)):
+                break
+            else:
+                print("Invalid password. Please enter a password between 8 and 20 characters with at least one uppercase letter, one lowercase letter, one digit, and one special character.")
 
         # Create a dictionary to store the teacher's details
         teacher = {
@@ -124,3 +156,36 @@ class HOD:
         for teacher in teachers:
             print(f"ID: {teacher['id']}, Name: {teacher['name']}, Department: {teacher['department']}")
         print("\n")
+        
+
+    def validate_password(password):
+        """
+        Check if the input string meets the password criteria.
+
+        Args:
+        password (str): The password to be validated.
+
+        Returns:
+        bool: True if the password meets the criteria, False otherwise.
+        """
+        # Check if the password length is between 8 and 20 characters
+        if len(password) < 8 or len(password) > 20:
+            return False
+        
+        # Check if the password contains at least one uppercase letter
+        if not re.search(r'[A-Z]', password):
+            return False
+        
+        # Check if the password contains at least one lowercase letter
+        if not re.search(r'[a-z]', password):
+            return False
+        
+        # Check if the password contains at least one digit
+        if not re.search(r'\d', password):
+            return False
+        
+        # Check if the password contains at least one special character
+        if not re.search(r'[@_!#$%^&*()<>?/\|}{~:]', password):
+            return False
+        
+        return True
