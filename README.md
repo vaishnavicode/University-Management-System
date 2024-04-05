@@ -18,7 +18,15 @@ Anyone who is learning Python or has learnt Python but want to build something c
 4. pwinput (external)
 
 
-## Librarian Functionalities
+## HOD Functionalities
+1. Login
+2. View Teachers Data
+3. View Students Data
+4.  **Add Teacher**
+5.  **Update Teacher**
+6.  **Remove Teacher**
+
+## Teacher Functionalities
 1. Login
 2. Register
 3. View Students Data
