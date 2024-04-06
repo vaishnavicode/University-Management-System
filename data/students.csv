@@ -1,4 +1,4 @@
 id,name,department,email,password,attendance,marks
 S001,John,HR,johndoe@gmail.com,123456,89,"[{'subject': 'Maths', 'marks': 90}, {'subject': 'Science', 'marks': 85}]"
 S002,David,CSE,david@email.com,password,16,"[{'subject': 'Maths', 'marks': 80}, {'subject': 'Science', 'marks': 75}]"
-S004,Jami,CSE,jami@jami.com,jamijamijami,50,"[{'subject': 'Maths', 'marks': '50'}]"
+S004,Jami,CSE,jami@jami.com,jamijamijami,50,"[{'subject': 'Maths', 'marks': '50'}, {'subject': 'English', 'marks': '67'}]"

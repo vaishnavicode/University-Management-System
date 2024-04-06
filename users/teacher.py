@@ -136,7 +136,7 @@ class Teacher:
     def add_marks(self):
         # Prompt the teacher to enter the student's ID
         student_id = input("Enter the student ID: ")
-    
+
         # Find the student in the teacher's list of students
         for student in self.students:
             if student["id"] == student_id:
@@ -144,29 +144,35 @@ class Teacher:
                 # Prompt the teacher to enter the subject and marks
                 subject = input("Enter the subject: ")
                 marks = input("Enter the marks: ")
-    
+
                 # Create a dictionary to represent the marks
                 marks_data = {"subject": subject, "marks": marks}
-    
+
                 # If the student has no marks yet, initialize an empty list
                 if not currentStudent["marks"]:
-                    currentStudent["marks"] = []
-    
+                    currentStudent["marks"] = "[]"
+
+                # Convert the marks string to a list of dictionaries
+                marks_list = eval(currentStudent["marks"])
+
                 # Append the new marks to the student's list of marks
-                currentStudent["marks"].append(marks_data)
+                marks_list.append(marks_data)
+
+                # Convert the list of dictionaries back to a string representation
+                currentStudent["marks"] = str(marks_list)
                 print(f"Marks added for {student['name']}.")
                 break
         else:
             print("Student not found. Please try again.")
             return
-        
+
         # Update the student's marks in the CSV file
         students = read_csv("data/students.csv")
         for student in students:
             if student["id"] == student_id:
                 student["marks"] = currentStudent["marks"]
                 break
-        
+
         write_csv("data/students.csv", students)
         self.students = read_csv("data/students.csv")
     
